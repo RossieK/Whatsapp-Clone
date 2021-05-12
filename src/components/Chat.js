@@ -3,6 +3,8 @@ import {Avatar, IconButton} from "@material-ui/core";
 import AttachFileOutlinedIcon from "@material-ui/icons/AttachFileOutlined";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
+import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
+import MicOutlinedIcon from "@material-ui/icons/MicOutlined";
 
 function Chat() {
   return (
@@ -42,6 +44,15 @@ function Chat() {
           This is a message
           <span className="chat__timestamp">{new Date().toUTCString()}</span>
         </p>
+      </div>
+
+      <div className="chat__footer">
+        <InsertEmoticonOutlinedIcon />
+        <form>
+          <input placeholder="Type a message" type="text" />
+          <button type="submit">Send a message</button>
+        </form>
+        <MicOutlinedIcon />
       </div>
     </div>
   );
