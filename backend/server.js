@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const Pusher = require("pusher");
 const cors = require("cors");
 const Messages = require("./dbMessages.js");
+const Rooms = require("./dbRooms");
 
 //Config
 dotenv.config({path: "./.env"});
@@ -66,6 +67,18 @@ app.post("/messages/new", (req, res) => {
   const dbMessage = req.body;
 
   Messages.create(dbMessage, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(201).send(data);
+    }
+  });
+});
+
+app.post("/rooms/new", (req, res) => {
+  const dbRoom = req.body;
+
+  Rooms.create(dbRoom, (err, data) => {
     if (err) {
       res.status(500).send(err);
     } else {
