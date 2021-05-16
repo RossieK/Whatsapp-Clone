@@ -5,8 +5,25 @@ import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import MicOutlinedIcon from "@material-ui/icons/MicOutlined";
+import {useState} from "react";
+import axios from "../axios";
 
 function Chat({messages}) {
+  const [input, setInput] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    await axios.post("/messages/new", {
+      message: input,
+      name: "$name",
+      timestamp: new Date().toISOString().slice(0, 10),
+      received: true,
+    });
+
+    setInput("");
+  };
+
   return (
     <div className="chat">
       <div className="chat__header">
@@ -41,8 +58,10 @@ function Chat({messages}) {
       <div className="chat__footer">
         <InsertEmoticonOutlinedIcon />
         <form>
-          <input placeholder="Type a message" type="text" />
-          <button type="submit">Send a message</button>
+          <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type a message" type="text" />
+          <button onClick={sendMessage} type="submit">
+            Send a message
+          </button>
         </form>
         <MicOutlinedIcon />
       </div>
