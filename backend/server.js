@@ -75,6 +75,16 @@ app.post("/messages/new", (req, res) => {
   });
 });
 
+app.get("/rooms/sync", (req, res) => {
+  Rooms.find((err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post("/rooms/new", (req, res) => {
   const dbRoom = req.body;
 
