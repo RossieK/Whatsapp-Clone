@@ -5,6 +5,7 @@ import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import MicOutlinedIcon from "@material-ui/icons/MicOutlined";
+import SendOutlinedIcon from "@material-ui/icons/SendOutlined";
 import {useState} from "react";
 import axios from "../axios";
 
@@ -60,7 +61,7 @@ function Chat({messages}) {
         <form>
           <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type a message" type="text" />
           <button onClick={sendMessage} type="submit">
-            Send a message
+            <SendOutlinedIcon />
           </button>
         </form>
         <MicOutlinedIcon />

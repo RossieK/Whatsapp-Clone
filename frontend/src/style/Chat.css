@@ -83,10 +83,16 @@
 }
 
 .chat__footer > form > button {
-  display: none;
+  border: none;
 }
 
-.chat__footer > .MuiSvgIcon-root {
+.chat__footer .MuiSvgIcon-root {
   padding: 10px;
   color: gray;
+  cursor: pointer;
+}
+
+.chat__footer .MuiSvgIcon-root:hover {
+  background-color: rgb(226, 226, 226);
+  border-radius: 50%;
 }
