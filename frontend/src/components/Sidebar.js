@@ -27,12 +27,12 @@ function Sidebar() {
       <div className="sidebar__search">
         <div className="sidebar__searchContainer">
           <SearchOutlinedIcon />
-          <input placeholder="Search or start new chat" type="text" />
+          <input placeholder="Search for a specific chat" type="text" />
         </div>
       </div>
 
       <div className="sidebar__chats">
-        <SidebarChat />
+        <SidebarChat addNewChat />
         <SidebarChat />
         <SidebarChat />
       </div>
