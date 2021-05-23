@@ -85,6 +85,16 @@ app.get("/rooms/sync", (req, res) => {
   });
 });
 
+app.get("/rooms/sync/:id", (req, res) => {
+  Rooms.findOne({_id: req.params.id}, (err, data) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(data);
+    }
+  });
+});
+
 app.post("/rooms/new", (req, res) => {
   const dbRoom = req.body;
 
