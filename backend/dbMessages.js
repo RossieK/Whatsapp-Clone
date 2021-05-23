@@ -5,6 +5,10 @@ const messageSchema = mongoose.Schema({
   name: String,
   timestamp: String,
   received: Boolean,
+  room: {
+    type: mongoose.Types.ObjectId,
+    ref: "room",
+  },
 });
 
 module.exports = mongoose.model("messageContent", messageSchema);

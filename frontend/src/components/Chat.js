@@ -13,6 +13,7 @@ import axios from "../axios";
 function Chat({messages}) {
   const [input, setInput] = useState("");
   const [roomName, setRoomName] = useState("");
+  const [roomMessages, setRoomMessages] = useState([]);
   const {roomId} = useParams();
 
   useEffect(() => {
@@ -24,7 +25,11 @@ function Chat({messages}) {
         })
         .catch((err) => console.error(err));
     }
-  }, [roomId]);
+
+    console.log(messages);
+
+    setRoomMessages(messages.filter((message) => message.room.toString() === roomId.toString()));
+  }, [roomId, messages]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -34,6 +39,7 @@ function Chat({messages}) {
       name: "$name",
       timestamp: new Date().toISOString().slice(0, 10),
       received: true,
+      room: roomId,
     });
 
     setInput("");
@@ -61,7 +67,7 @@ function Chat({messages}) {
       </div>
 
       <div className="chat__body">
-        {messages.map((message, index) => (
+        {roomMessages.map((message, index) => (
           <p key={index} className={`chat__message ${message.received ? "chat__receiver" : ""}`}>
             <span className="chat__name">{message.name}</span>
             {message.message}

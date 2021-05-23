@@ -45,6 +45,7 @@ db.once("open", function callback() {
         message: messageDetails.message,
         timestamp: messageDetails.timestamp,
         received: messageDetails.received,
+        room: messageDetails.room,
       });
     } else {
       console.log("Error triggering Pusher");
