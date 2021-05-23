@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import axios from "./axios";
 import {useEffect, useState} from "react";
+import {Route, Switch} from "react-router-dom";
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -33,8 +34,15 @@ function App() {
   return (
     <div className="App">
       <div className="app__body">
-        <Sidebar />
-        <Chat messages={messages} />
+        <Switch>
+          <Sidebar />
+          <Route path="/rooms/:roomId">
+            <Chat messages={messages} />
+          </Route>
+          <Route path="/">
+            <Chat />
+          </Route>
+        </Switch>
       </div>
     </div>
   );

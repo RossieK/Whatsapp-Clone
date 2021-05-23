@@ -12,9 +12,12 @@ function SidebarChat({addNewChat, id, name}) {
 
   const createChat = async () => {
     const roomName = prompt("Please enter name for chat");
-    await axios.post("/rooms/new", {
-      name: roomName,
-    });
+
+    if (roomName) {
+      await axios.post("/rooms/new", {
+        name: roomName,
+      });
+    }
   };
 
   return !addNewChat ? (
