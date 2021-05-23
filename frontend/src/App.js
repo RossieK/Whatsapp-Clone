@@ -34,14 +34,12 @@ function App() {
   return (
     <div className="App">
       <div className="app__body">
+        <Sidebar />
         <Switch>
-          <Sidebar />
-          <Route path="/rooms/:roomId">
+          <Route path="/rooms/:roomId" exact>
             <Chat messages={messages} />
           </Route>
-          <Route path="/">
-            <Chat />
-          </Route>
+          <Route path="/" exact></Route>
         </Switch>
       </div>
     </div>

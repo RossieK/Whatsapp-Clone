@@ -6,11 +6,19 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import MicOutlinedIcon from "@material-ui/icons/MicOutlined";
 import SendOutlinedIcon from "@material-ui/icons/SendOutlined";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import axios from "../axios";
 
 function Chat({messages}) {
   const [input, setInput] = useState("");
+  const [roomName, setRoomName] = useState("");
+  const {roomId} = useParams();
+
+  useEffect(() => {
+    if (roomId) {
+    }
+  }, [roomId]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
