@@ -17,6 +17,12 @@ function Chat({messages}) {
 
   useEffect(() => {
     if (roomId) {
+      axios
+        .get("/rooms/sync/" + roomId)
+        .then((res) => {
+          setRoomName(res.data.name);
+        })
+        .catch((err) => console.error(err));
     }
   }, [roomId]);
 
@@ -38,7 +44,7 @@ function Chat({messages}) {
       <div className="chat__header">
         <Avatar />
         <div className="chat__headerInfo">
-          <h3>Room name</h3>
+          <h3>{roomName}</h3>
           <p>Last seen at...</p>
         </div>
         <div className="chat__headerRight">
