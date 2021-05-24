@@ -3,6 +3,7 @@ import Pusher from "pusher-js";
 import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import axios from "./axios";
 import {useEffect, useState} from "react";
 import {Route, Switch} from "react-router-dom";
@@ -36,7 +37,14 @@ function App() {
   return (
     <div className="App">
       {!user ? (
-        <Login />
+        <Switch>
+          <Route path="/login" exact>
+            <Login />
+          </Route>
+          <Route path="/register" exact>
+            <Register />
+          </Route>
+        </Switch>
       ) : (
         <div className="app__body">
           <Sidebar />
