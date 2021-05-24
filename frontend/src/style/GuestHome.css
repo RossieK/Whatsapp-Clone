@@ -1,0 +1,18 @@
+.home__container > img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 5px 6px rgba(1, 1, 1, 0.7);
+}
+
+.home__container > h1 {
+  margin-bottom: 60px;
+}
+
+.link,
+.link:hover,
+.link:active,
+.link:visited,
+.link:focus {
+  text-decoration: none;
+  color: #0a8d48;
+}

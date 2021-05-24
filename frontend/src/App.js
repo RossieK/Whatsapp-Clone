@@ -4,6 +4,7 @@ import Sidebar from "./components/Sidebar";
 import Chat from "./components/Chat";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import GuestHome from "./components/GuestHome";
 import axios from "./axios";
 import {useEffect, useState} from "react";
 import {Route, Switch} from "react-router-dom";
@@ -38,6 +39,9 @@ function App() {
     <div className="App">
       {!user ? (
         <Switch>
+          <Route path="/" exact>
+            <GuestHome />
+          </Route>
           <Route path="/login" exact>
             <Login />
           </Route>
