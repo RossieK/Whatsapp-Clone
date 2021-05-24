@@ -26,8 +26,6 @@ function Chat({messages}) {
         .catch((err) => console.error(err));
     }
 
-    console.log(messages);
-
     setRoomMessages(messages.filter((message) => message.room.toString() === roomId.toString()));
   }, [roomId, messages]);
 
