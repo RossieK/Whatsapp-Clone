@@ -23,7 +23,31 @@ function loginUponRegistration(user) {
   return token;
 }
 
+async function login({email, password}) {
+  let user = await User.findOne({email});
+
+  if (!user) {
+    throw "Invalid credentials";
+  }
+
+  let passwordsMatch = await bcrypt.compare(password, user.password);
+
+  if (!passwordsMatch) {
+    throw "Invalid credentials";
+  }
+
+  let token = jwt.sign({_id: user._id}, process.env.BCRYPT_SECRET);
+
+  return token;
+}
+
+function getUser(email) {
+  return User.findOne({email}).lean();
+}
+
 module.exports = {
   register,
   loginUponRegistration,
+  login,
+  getUser,
 };
