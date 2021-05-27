@@ -1,11 +1,39 @@
 import "../style/Login.css";
 import {Link} from "react-router-dom";
 import {Button} from "@material-ui/core";
+import {useState} from "react";
+import axios from "../axios";
+import {actionTypes} from "../reducer";
+import {useStateValue} from "../StateProvider";
 
 function Login() {
-  const emailChangeHandler = () => {};
-  const passwordChangeHandler = () => {};
-  const signIn = () => {};
+  const [{}, dispatch] = useStateValue();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const passwordChangeHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const signIn = () => {
+    axios
+      .post("/login", {
+        email,
+        password,
+      })
+      .then((res) => {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: res.data.user,
+          token: res.data.token,
+        });
+      })
+      .catch((err) => console.log(err.response.data.message));
+  };
 
   return (
     <div className="login">
