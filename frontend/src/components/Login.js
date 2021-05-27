@@ -1,5 +1,5 @@
 import "../style/Login.css";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Button} from "@material-ui/core";
 import {useState} from "react";
 import axios from "../axios";
@@ -7,6 +7,7 @@ import {actionTypes} from "../reducer";
 import {useStateValue} from "../StateProvider";
 
 function Login() {
+  const history = useHistory();
   const [{}, dispatch] = useStateValue();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +32,7 @@ function Login() {
           user: res.data.user,
           token: res.data.token,
         });
+        history.push("/");
       })
       .catch((err) => console.log(err.response.data.message));
   };

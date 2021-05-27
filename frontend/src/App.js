@@ -8,9 +8,10 @@ import GuestHome from "./components/GuestHome";
 import axios from "./axios";
 import {useEffect, useState} from "react";
 import {Route, Switch} from "react-router-dom";
+import {useStateValue} from "./StateProvider";
 
 function App() {
-  const [user, setUser] = useState("");
+  const [{user}, dispatch] = useStateValue();
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
@@ -53,10 +54,10 @@ function App() {
         <div className="app__body">
           <Sidebar />
           <Switch>
+            <Route path="/" exact></Route>
             <Route path="/rooms/:roomId" exact>
               <Chat messages={messages} />
             </Route>
-            <Route path="/" exact></Route>
           </Switch>
         </div>
       )}
