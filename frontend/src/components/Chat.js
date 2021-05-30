@@ -14,6 +14,7 @@ function Chat({messages}) {
   const [input, setInput] = useState("");
   const [roomName, setRoomName] = useState("");
   const [roomMessages, setRoomMessages] = useState([]);
+  const [lastSeen, setLastSeen] = useState("");
   const {roomId} = useParams();
 
   useEffect(() => {
@@ -26,7 +27,9 @@ function Chat({messages}) {
         .catch((err) => console.error(err));
     }
 
-    setRoomMessages(messages.filter((message) => message.room.toString() === roomId.toString()));
+    let currentMessages = messages.filter((message) => message.room.toString() === roomId.toString());
+    setRoomMessages(currentMessages);
+    setLastSeen(currentMessages[currentMessages.length - 1].timestamp);
   }, [roomId, messages]);
 
   const sendMessage = async (e) => {
@@ -49,7 +52,7 @@ function Chat({messages}) {
         <Avatar />
         <div className="chat__headerInfo">
           <h3>{roomName}</h3>
-          <p>Last seen at...</p>
+          <p>Last seen: {lastSeen}</p>
         </div>
         <div className="chat__headerRight">
           <IconButton>
