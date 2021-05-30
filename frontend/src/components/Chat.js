@@ -6,6 +6,7 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import InsertEmoticonOutlinedIcon from "@material-ui/icons/InsertEmoticonOutlined";
 import MicOutlinedIcon from "@material-ui/icons/MicOutlined";
 import SendOutlinedIcon from "@material-ui/icons/SendOutlined";
+import Picker from "emoji-picker-react";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import axios from "../axios";
@@ -15,6 +16,8 @@ function Chat({messages}) {
   const [roomName, setRoomName] = useState("");
   const [roomMessages, setRoomMessages] = useState([]);
   const [lastSeen, setLastSeen] = useState("");
+  const [showEmojis, setShowEmojis] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
   const {roomId} = useParams();
 
   useEffect(() => {
@@ -32,6 +35,12 @@ function Chat({messages}) {
     setLastSeen(currentMessages[currentMessages.length - 1].timestamp);
   }, [roomId, messages]);
 
+  useEffect(() => {
+    if (chosenEmoji) {
+      setInput(input + chosenEmoji.emoji);
+    }
+  }, [chosenEmoji]);
+
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -44,6 +53,14 @@ function Chat({messages}) {
     });
 
     setInput("");
+  };
+
+  const showEmojiScreen = () => {
+    setShowEmojis(!showEmojis);
+  };
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
   };
 
   return (
@@ -78,7 +95,8 @@ function Chat({messages}) {
       </div>
 
       <div className="chat__footer">
-        <InsertEmoticonOutlinedIcon />
+        <InsertEmoticonOutlinedIcon onClick={showEmojiScreen} />
+        {showEmojis ? <Picker onEmojiClick={onEmojiClick} /> : ""}
         <form>
           <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Type a message" type="text" />
           <button onClick={sendMessage} type="submit">
