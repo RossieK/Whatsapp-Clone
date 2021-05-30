@@ -1,12 +1,44 @@
 import "../style/Register.css";
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import {Button} from "@material-ui/core";
+import {useState} from "react";
+import {useStateValue} from "../StateProvider";
+import axios from "../axios";
+import {actionTypes} from "../reducer";
 
 function Register() {
-  const emailChangeHandler = () => {};
-  const passwordChangeHandler = () => {};
-  const rePasswordChangeHandler = () => {};
-  const signIn = () => {};
+  const history = useHistory();
+  const [{}, dispatch] = useStateValue();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
+
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+  };
+  const passwordChangeHandler = (e) => {
+    setPassword(e.target.value);
+  };
+  const rePasswordChangeHandler = (e) => {
+    setRePassword(e.target.value);
+  };
+  const signUp = () => {
+    axios
+      .post("/register", {
+        email,
+        password,
+        rePassword,
+      })
+      .then((res) => {
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: res.data.user,
+          token: res.data.token,
+        });
+        history.push("/");
+      })
+      .catch((err) => console.log(err.response.data.message));
+  };
 
   return (
     <div className="register">
@@ -18,7 +50,7 @@ function Register() {
           <input type="password" placeholder="Password" onChange={passwordChangeHandler} />
           <input type="password" placeholder="Repeat Password" onChange={rePasswordChangeHandler} />
         </div>
-        <Button onClick={signIn}>Sign Up</Button>
+        <Button onClick={signUp}>Sign Up</Button>
         <h3>
           Already have an account?{"  "}
           <Link to="/login" className="link">
