@@ -4,8 +4,16 @@ import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import axios from "../axios";
 
-function SidebarChat({addNewChat, id, name}) {
+function SidebarChat({addNewChat, id, name, messages}) {
   const [seed, setSeed] = useState("");
+  const [lastMessage, setLastMessage] = useState("");
+
+  useEffect(() => {
+    if (id) {
+      let roomMessages = messages.filter((message) => message.room.toString() === id.toString());
+      setLastMessage(roomMessages[roomMessages.length - 1].message);
+    }
+  }, [id, messages]);
 
   useEffect(() => {
     setSeed(Math.floor(Math.random() * 5000));
@@ -22,12 +30,12 @@ function SidebarChat({addNewChat, id, name}) {
   };
 
   return !addNewChat ? (
-    <Link to={`/rooms/${id}`}>
+    <Link to={`/rooms/${id}`} className="linkRoom">
       <div className="sidebarChat">
         <Avatar src={`https://avatars.dicebear.com/api/human/${seed}.svg`} />
         <div className="sidebarChat__info">
           <h2>{name}</h2>
-          <p>This is the last message</p>
+          <p>{lastMessage}</p>
         </div>
       </div>
     </Link>

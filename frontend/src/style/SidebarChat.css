@@ -1,3 +1,12 @@
+.linkRoom,
+.linkRoom:hover,
+.linkRoom:active,
+.linkRoom:visited,
+.linkRoom:focus {
+  text-decoration: none;
+  color: black;
+}
+
 .sidebarChat {
   display: flex;
   padding: 20px;

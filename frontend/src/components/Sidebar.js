@@ -8,7 +8,7 @@ import SidebarChat from "./SidebarChat";
 import {useEffect, useState} from "react";
 import axios from "../axios";
 
-function Sidebar() {
+function Sidebar({messages}) {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ function Sidebar() {
       <div className="sidebar__chats">
         <SidebarChat addNewChat />
         {rooms.map((room) => (
-          <SidebarChat key={room._id} id={room._id} name={room.name} />
+          <SidebarChat key={room._id} id={room._id} name={room.name} messages={messages} />
         ))}
       </div>
     </div>

@@ -52,7 +52,7 @@ function App() {
         </Switch>
       ) : (
         <div className="app__body">
-          <Sidebar />
+          <Sidebar messages={messages} />
           <Switch>
             <Route path="/" exact></Route>
             <Route path="/rooms/:roomId" exact>
